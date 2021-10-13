@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ .Site.Title }}</title>
+  </head>
+  <body>
+    <h1>{{ .Site.Title }}</h1>
+    <ul>
+      {{ range sort .Site.Data.oc "dt" "desc" -}}
+      {{ $id := int .id -}}
+      <li>
+        <p>
+          <time datetime="{{ .dt }}">{{ .dt }}</time>
+          |
+          generated with <a href="https://picrew.me/image_maker/{{ $id }}">#{{ $id }}</a>
+        </p>
+        {{ $img := resources.Get (printf "%d.png" $id) -}}
+        <p><img src="{{ (resources.Fingerprint $img).RelPermalink -}}"></p>
+      </li>
+      {{- end }}
+    </ul>
+  </body>
+</html>

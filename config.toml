@@ -1,0 +1,4 @@
+languageCode = "en-gb"
+title = "Michcio's collection of picrews"
+
+disableKinds = ["taxonomy", "term"]
