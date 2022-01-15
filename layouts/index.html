@@ -3,22 +3,26 @@
   <head>
     <meta charset="UTF-8">
     <title>{{ .Site.Title }}</title>
+    <link rel="stylesheet" href="{{ (resources.Get "main.sass" | resources.ExecuteAsTemplate "main.sass" . | resources.Fingerprint | resources.ToCSS (dict "enableSourceMap" true)).RelPermalink }}">
   </head>
   <body>
     <h1>{{ .Site.Title }}</h1>
-    <ul>
+    <main>
       {{ range sort .Site.Data.oc "dt" "desc" -}}
       {{ $id := int .id -}}
-      <li>
-        <p>
-          <time datetime="{{ .dt }}">{{ .dt }}</time>
+      {{ $img := resources.Get (printf "%d.png" $id) -}}
+      <figure style="--rotation: {{ sub (mul 4 (mod $id 5)) 9 }}deg">
+        <picture>
+          <source srcset="{{ ($img.Resize "600x600 webp drawing" | resources.Fingerprint).RelPermalink }}" type="image/webp">
+          <img src="{{ ($img.Resize "600x600 jpg drawing" | resources.Fingerprint).RelPermalink }}">
+        </picture>
+        <figcaption>
+          <time datetime="{{ .dt }}">{{ time.Format "Monday, Jan 2, 2006" .dt }}</time>
           |
-          generated with <a href="https://picrew.me/image_maker/{{ $id }}">#{{ $id }}</a>
-        </p>
-        {{ $img := resources.Get (printf "%d.png" $id) -}}
-        <p><img src="{{ (resources.Fingerprint $img).RelPermalink -}}"></p>
-      </li>
+          <a href="https://picrew.me/image_maker/{{ $id }}">#{{ $id }}</a>
+        </figcaption>
+      </figure>
       {{- end }}
-    </ul>
+    </main>
   </body>
 </html>

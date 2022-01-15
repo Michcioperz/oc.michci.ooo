@@ -1,0 +1,44 @@
+/*! font Shadows Into Light by Kimberly Geswein (kimberlygeswein.com) licensed under SIL OFL 1.1
+@font-face
+  font-family: "Shadows Into Light"
+  font-style: normal
+  font-weight: 600
+  font-display: swap
+  src: local('Shadows Into Light'), url({{ (resources.Get "ShadowsIntoLight-Regular.ttf" | resources.Fingerprint).RelPermalink }}) format("truetype")
+
+*
+  transition: all 250ms
+
+html, body
+  text-align: center
+  font-family: "Shadows Into Light", fantasy, cursive
+  background: linear-gradient(#bae1ff, #baffc9, #ffffba, #ffdfba, #ffb3ba)
+  color: black
+
+h1
+  font-size: 4em
+
+h1, figure
+  margin:
+    bottom: 3em
+
+main
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+
+figure
+  img 
+    border: 0.05em dotted darkslategray
+  padding: 1em
+  width: 600px
+  display: block
+  background: whitesmoke
+  color: darkslategray
+  font-weight: 600
+  font-size: 2em
+  box-shadow: 1em 1em 5em black
+  transform: rotate(var(--rotation))
+  margin:
+    left: auto
+    right: auto
