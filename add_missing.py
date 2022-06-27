@@ -9,6 +9,10 @@ with Path("data/oc.json").open() as f:
 existing = {x["id"] for x in data}
 
 for filename in Path("assets").glob("*.png"):
+    if "_" in filename.stem:
+        stripped = filename.with_stem(filename.stem.split("_", 1)[0])
+        filename.rename(stripped)
+        filename = stripped
     ident = int(filename.stem)
     if ident not in existing:
         data.insert(0, {"id": ident, "dt": datetime.datetime.now().astimezone().isoformat()})
